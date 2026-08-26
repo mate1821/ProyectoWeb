@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Mostrar reservas</h1>
+    <table>
+        <thead>
+            <tr>
+        <th>Id</th>
+        <th>Usuario</th>
+        <th>Espacio</th>
+        <th>Fecha</th>
+        <th>Hora</th>
+        </tr>
+        </thead>
+        <tbody>
+            <tr  th:each="reserva : ${reservas}">
+                <td th:text="${reserva.id}"></td>
+                <td th:text="${reserva.usuario}"></td>
+                <td th:text="${reserva.espacio}"></td>
+                <td th:text="${reserva.fecha}"></td>
+                <td th:text="${reserva.hora}"></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+    </html>
