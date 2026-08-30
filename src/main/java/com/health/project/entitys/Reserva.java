@@ -15,13 +15,13 @@ import java.time.LocalDateTime;
 public class Reserva {
     public int idReserva;
     public Usuario usuario;
-    public Espacio espacio;
     public LocalDate fecha;
     public LocalTime horaInicio;
     public LocalTime horaFin;
     public EstadoReserva estado ;
     public LocalDateTime fechaSolicitud;
     public String observaciones;
+    public Medico medico;
     public double total;
 
 
