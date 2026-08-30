@@ -1,28 +1,29 @@
 package com.health.project.entitys;
 
-import lombok.AllArgsConstructor;
-import lombok.Data; 
+import lombok.Data;
 import java.util.Date;
 
+
 @Data
-@AllArgsConstructor
-public class Usuario {
-    private Integer id; // Integer puede ser null 
-    private Long cedula; 
-    private String nombre;
-    private Date fecha_nacimiento; // int no puede ser null
+
+public class Usuario extends Persona {
+
     private String antecedentes;
-    private String correo;
-    private String tipo_servicio ; 
-    private String rol;
-    private String telefono;
+    private String tipoServicio;
     private Boolean activo;
 
+
+    public Usuario(Integer id, Long cedula, String nombre, Date fechaNacimiento, String rol, String telefono, String correo, String contrasena, String fechaRegistro,String antecedentes, String tipoServicio, Boolean activo) {
+        super(id, cedula, nombre, fechaNacimiento, rol, telefono, correo, contrasena, fechaRegistro);
+        
+        this.antecedentes = antecedentes;
+        this.tipoServicio = tipoServicio;
+        this.activo = activo;
+    }
+    
     @Override
-public String toString() {
-    return nombre;
-}
-
-
+    public String toString() {
+        return getNombre();
+    }
 
 }

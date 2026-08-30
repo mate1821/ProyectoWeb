@@ -1,18 +1,34 @@
 package com.health.project.entitys;
-
-import java.util.Collection;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.LocalDateTime;
+
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+
+
 public class Reserva {
-    private Integer id;
-    private Usuario usuario;
-    private String espacio;//CAMBIAR LUEGO A ENTIDAD ESPACIO
-    private String fecha;
-    private String hora;
+    public int idReserva;
+    public Usuario usuario;
+    public Espacio espacio;
+    public LocalDate fecha;
+    public LocalTime horaInicio;
+    public LocalTime horaFin;
+    public EstadoReserva estado ;
+    public LocalDateTime fechaSolicitud;
+    public String observaciones;
+    public double total;
+
+
+    public enum EstadoReserva {
+    PENDIENTE,
+    CONFIRMADA,
+    CANCELADA,
+    COMPLETADA
+}
 }

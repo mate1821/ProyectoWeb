@@ -18,7 +18,7 @@ public class ReservaController {
     ReservaService service;
 
 
-    @GetMapping("/")
+    @GetMapping("/mostrar")
     public String mostrarReservas(Model model) {
         model.addAttribute("reservas", service.searchAll());
         return "mostrar_reservas";
