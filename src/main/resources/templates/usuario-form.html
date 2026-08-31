@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Usuario - NEXORA</title>
+</head>
+
+<body>
+    <h1 th:text="${usuario.id == null ? 'Nuevo usuario' : 'Editar usuario'}"></h1>
+    <form th:action="@{/usuarios/guardar}" th:object="${usuario}" method="post">
+        <input type="hidden" th:field="*{id}">
+        <input type="hidden" th:field="*{activo}">
+        <label>Cedula:</label>
+        <input type="text" th:field="*{cedula}" required>
+        <br>
+        <label>Nombre:</label>
+        <input type="text" th:field="*{nombre}" required>
+        <br>
+        <label>Correo:</label>
+        <input type="email" th:field="*{correo}" required>
+        <br>
+        <input type="hidden" th:field="*{antecedentes}">
+        <label>Antecedentes:</label>
+        <input type="text" th:field="*{cedula}" required>
+        <br>
+        <label>Fecha:</label>
+        <input type="date" th:field="*{fecha_nacimiento}">
+        <br>
+        <label>Empresa:</label>
+        <input type="rol" th:field="*{rol}">
+        <br>
+        <input type="hidden" th:field="*{activo}">
+        <label>tipo servicio:</label>
+        <input type="text" th:field="*{tipo_servicio}" required>
+        <br>
+        <label>Teléfono:</label>
+        <input type="text" th:field="*{telefono}">
+        <br>
+        <button type="submit">Guardar</button>
+        <a th:href="@{/usuarios}">Cancelar</a>
+    </form>
+</body>
+
+</html>

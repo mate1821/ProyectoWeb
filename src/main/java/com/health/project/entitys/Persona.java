@@ -24,7 +24,7 @@ class Persona {
         this.id = id;
         this.cedula = cedula;
         this.nombre = nombre;
-        this.fechaNacimiento = fechaNacimiento;
+        this.fechaNacimiento = fechaNacimientoDateTimeFormatter.ofPattern("dd/MM/yyyy");;
         this.rol = rol;
         this.telefono = telefono;
         this.correo = correo;
