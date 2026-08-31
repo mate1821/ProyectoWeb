@@ -29,11 +29,11 @@
                 <tr th:each="reserva : ${reservas}">
                     <td th:text="${reserva.idReserva}"></td>
                     <td th:text="${reserva.usuario.nombre}"></td>
-                    <td th:text="${reserva.medico.hospital.nombre}"></td>
+                    <td th:text="${reserva.espacio.nombre}"></td>
                     <td th:text="${reserva.fecha}"></td>
                     <td th:text="${reserva.horaInicio}"></td>
                     <td th:text="${reserva.horaFin}"></td>
-                    <td th:text="${reserva.total}"></td>
+                    <td th:text="${reserva.medico.costo}"></td>
                     <td th:text="${reserva.medico.nombre}"></td>
                     <td>
                         <span class="estado" th:text="${reserva.estado}"></span>

@@ -19,3 +19,8 @@ public class Espacio {
     public String imagenUrl;
     public boolean activo;
 }
+
+// USUARIO uno a muchos RESERVAS
+// ESPACIO uno a muchos RESERVAS
+// RESERVAS uno a uno ESPACIO
+// MEDICO uno a uno ESPACIO - 

@@ -23,6 +23,7 @@ public class Reserva {
     public String observaciones;
     public Medico medico;
     public double total;
+    public Espacio espacio ; 
 
 
     public enum EstadoReserva {
@@ -32,3 +33,5 @@ public class Reserva {
     COMPLETADA
 }
 }
+
+// Servicios epseciales a una resevacion
