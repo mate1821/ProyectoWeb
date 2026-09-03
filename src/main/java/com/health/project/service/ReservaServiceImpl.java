@@ -1,4 +1,4 @@
-/* 
+
 package com.health.project.service;
 
 import java.util.Collection;
@@ -13,8 +13,7 @@ import com.health.project.repository.ReservaRepository;
 public class ReservaServiceImpl implements ReservaService {
     @Autowired
     ReservaRepository reservaRepository;
-     
-
+    
     @Override
     public Reserva searchById(Integer id) {
         return reservaRepository.findById(id);
@@ -24,7 +23,7 @@ public class ReservaServiceImpl implements ReservaService {
     @Override
     public Collection<Reserva> searchAll(){
         return reservaRepository.findAll();
-    }
+    
 
 }
-*/
+}

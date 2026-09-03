@@ -14,7 +14,7 @@ import com.health.project.entitys.Usuario;
 import com.health.project.entitys.Medico;
 import com.health.project.entitys.Medico.Especialidad;
 
-/* 
+
 import java.util.Date;
 
 import java.util.Map;
@@ -28,34 +28,64 @@ public class ReservaRepository {
     public ReservaRepository(){
     // Usuarios : 
         Usuario usuario1 = new Usuario(
-            1, 101001001L, "Ansu Fati", new Date(), "PACIENTE", 
-            "3001234567", "ansu@email.com", "12345", "2026-01-10", 
-            "Ninguno", "Consulta Externa", true
-        );
+    1, 
+    101001001L, 
+    "Ansu Fati", 
+    new Date(), 
+    "PACIENTE", 
+    "3001234567", 
+    "ansu@email.com", 
+    "12345", 
+    true
+);
 
-        Usuario usuario2 = new Usuario(
-            2, 102002002L, "Lamine Yamal", new Date(), "PACIENTE", 
-            "3009876543", "lamine@email.com", "54321", "2026-02-15", 
-            "Alergia a la penicilina", "Urgencias", true
-        );
+Usuario usuario2 = new Usuario(
+    2, 
+    102002002L, 
+    "Lamine Yamal", 
+    new Date(), 
+    "PACIENTE", 
+    "3009876543", 
+    "lamine@email.com", 
+    "54321", 
+    true
+);
 
-        Usuario usuario3 = new Usuario(
-            3, 103030303L, "Pedri González", new Date(), "PACIENTE", 
-            "3115554433", "pedri@email.com", "abcde", "2026-03-01", 
-            "Lesión muscular recurrente", "Fisioterapia", true
-        );
+Usuario usuario3 = new Usuario(
+    3, 
+    103030303L, 
+    "Pedri González", 
+    new Date(), 
+    "PACIENTE", 
+    "3115554433", 
+    "pedri@email.com", 
+    "abcde", 
+    true
+);
 
-        Usuario usuario4 = new Usuario(
-            4, 104040404L, "Gavi Páez", new Date(), "PACIENTE", 
-            "3158889911", "gavi@email.com", "qwerty", "2026-04-12", 
-            "Cirugía de rodilla previa", "Especialidad", true
-        );
+Usuario usuario4 = new Usuario(
+    4, 
+    104040404L, 
+    "Gavi Páez", 
+    new Date(), 
+    "PACIENTE", 
+    "3158889911", 
+    "gavi@email.com", 
+    "qwerty", 
+    true
+);
 
-        Usuario usuario5 = new Usuario(
-            5, 105050505L, "Raphinha Dias", new Date(), "PACIENTE", 
-            "3207772233", "raphinha@email.com", "zxcvb", "2026-05-20", 
-            "Asma leve", "Chequeo General", true
-        );
+Usuario usuario5 = new Usuario(
+    5, 
+    105050505L, 
+    "Raphinha Dias", 
+    new Date(), 
+    "PACIENTE", 
+    "3207772233", 
+    "raphinha@email.com", 
+    "zxcvb", 
+    true
+);
 
 // espacios : 
 
@@ -168,4 +198,3 @@ data.put(5, new Reserva(
 
 
 }
-    */
