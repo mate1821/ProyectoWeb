@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import java.util.Date;
 
 @Data
+@NoArgsConstructor
 
 class Persona {
 
@@ -24,7 +25,7 @@ class Persona {
         this.id = id;
         this.cedula = cedula;
         this.nombre = nombre;
-        this.fechaNacimiento = fechaNacimientoDateTimeFormatter.ofPattern("dd/MM/yyyy");;
+        this.fechaNacimiento = fechaNacimiento;
         this.rol = rol;
         this.telefono = telefono;
         this.correo = correo;
