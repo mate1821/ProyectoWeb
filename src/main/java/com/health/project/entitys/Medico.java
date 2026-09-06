@@ -1,96 +1,90 @@
 package com.health.project.entitys;
+
 import lombok.Data;
 import java.util.Date;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Transient;
 
 @Data
-public class Medico extends Persona {
+@Entity
+public class Medico {
 
-    // enumeracion 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
+    @Column(nullable = false, unique = true)
+    private Long cedula;
+
+    @Column(nullable = false, length = 100)
+    private String nombre;
+
+    @Column(nullable = false)
+    private Date fechaNacimiento;
+
+    @Column(length = 120)
+    private String rol;
+
+    @Column(length = 120)
+    private String telefono;
+
+    @Column(length = 120)
+    private String correo;
+
+    @Column(length = 120)
+    private String contrasena;
+
+    @Column(updatable = false)
+    private String fechaRegistro;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, length = 30)
     private Especialidad especialidad;
+
+    @Column(length = 100)
     private String empleador;
-    private Espacio hospital ; 
-    private double costo ; 
 
+    @Transient
+    @JoinColumn(name = "hospital_id")
+    private Espacio hospital;
 
-    public Medico(Integer id, Long cedula, String nombre, Date fechaNacimiento, String rol, String telefono, String correo, String contrasena, String fechaRegistro,Especialidad especialidad, String empleador, Espacio hospital) {
-        super(id, cedula, nombre, fechaNacimiento, rol, telefono, correo, contrasena, fechaRegistro);
+    public Medico(Integer id, Long cedula, String nombre, Date fechaNacimiento, String rol, String telefono, String correo, String contrasena, String fechaRegistro, Especialidad especialidad, String empleador, Espacio hospital) {
+        this.id = id;
+        this.cedula = cedula;
+        this.nombre = nombre;
+        this.fechaNacimiento = fechaNacimiento;
+        this.rol = rol;
+        this.telefono = telefono;
+        this.correo = correo;
+        this.contrasena = contrasena;
+        this.fechaRegistro = fechaRegistro;
         this.especialidad = especialidad;
         this.empleador = empleador;
         this.hospital = hospital;
-        this.costo = asignarCosto(especialidad);
-
     }
 
     public enum Especialidad {
-    MEDICINA_GENERAL,
-    PEDIATRIA,
-    CARDIOLOGIA,
-    DERMATOLOGIA,
-    NEUROLOGIA,
-    GINECOLOGIA,
-    ORTOPEDIA,
-    CIRUGIA_GENERAL,
-    OFTALMOLOGIA,
-    UROLOGIA,
-    ENDOCRINOLOGIA,
-    GASTROENTEROLOGIA,
-    ONCOLOGIA,
-    PSIQUIATRIA,
-    NEUMOLOGIA
-}
-
-public double asignarCosto(Especialidad especialidad) {
-    switch (especialidad) {
-        case MEDICINA_GENERAL:
-            return 50000;
-
-        case PEDIATRIA:
-            return 70000;
-
-        case CARDIOLOGIA:
-            return 120000;
-
-        case DERMATOLOGIA:
-            return 100000;
-
-        case NEUROLOGIA:
-            return 130000;
-
-        case GINECOLOGIA:
-            return 90000;
-
-        case ORTOPEDIA:
-            return 110000;
-
-        case CIRUGIA_GENERAL:
-            return 150000;
-
-        case OFTALMOLOGIA:
-            return 100000;
-
-        case UROLOGIA:
-            return 120000;
-
-        case ENDOCRINOLOGIA:
-            return 100000;
-
-        case GASTROENTEROLOGIA:
-            return 120000;
-
-        case ONCOLOGIA:
-            return 180000;
-
-        case PSIQUIATRIA:
-            return 90000;
-
-        case NEUMOLOGIA:
-            return 110000;
-
-        default:
-            return 0;
+        MEDICINA_GENERAL,
+        PEDIATRIA,
+        CARDIOLOGIA,
+        DERMATOLOGIA,
+        NEUROLOGIA,
+        GINECOLOGIA,
+        ORTOPEDIA,
+        CIRUGIA_GENERAL,
+        OFTALMOLOGIA,
+        UROLOGIA,
+        ENDOCRINOLOGIA,
+        GASTROENTEROLOGIA,
+        ONCOLOGIA,
+        PSIQUIATRIA,
+        NEUMOLOGIA
     }
-}
-
-
-
 }

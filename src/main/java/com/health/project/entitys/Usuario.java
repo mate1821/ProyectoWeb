@@ -21,7 +21,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id; // Integer puede ser null
+    private Long id; // Integer puede ser null
     @Column(nullable = false, length = 100, unique=true)
     private Long cedula;
     @Column(nullable = false, length = 100)
@@ -50,11 +50,12 @@ public String toString() {
     return nombre;
 }
 
-public Usuario (Integer id, Long cedula, String nombre, Date fechaNacimiento, String rol, String telefono, String correo, String contrasena, boolean activo) {
+public Usuario (Long id, Long cedula, String nombre, Date fechaNacimiento,String antecedentes, String rol, String telefono, String correo, String contrasena, boolean activo) {
         this.id = id;
         this.cedula = cedula;
         this.nombre = nombre;
         this.fecha_nacimiento = fechaNacimiento;
+        this.antecedentes = antecedentes;
         this.rol = rol;
         this.telefono = telefono;
         this.correo = correo;
@@ -63,5 +64,27 @@ public Usuario (Integer id, Long cedula, String nombre, Date fechaNacimiento, St
         this.fechaRegistro= LocalDateTime.now();
 
     }
+
+    // cinstructor sin el elemento del id 
+    public Usuario (Long cedula, String nombre, Date fechaNacimiento,String antecedentes ,String rol, String telefono, String correo, String contrasena, boolean activo) {
+        this.cedula = cedula;
+        this.nombre = nombre;
+        this.fecha_nacimiento = fechaNacimiento;
+        this.antecedentes = antecedentes;
+        this.rol = rol;
+        this.telefono = telefono;
+        this.correo = correo;
+        this.activo=activo;
+        this.contrasena = contrasena;
+        this.fechaRegistro= LocalDateTime.now();
+
+    }
+
+
+
+
+
+
+
 }
 

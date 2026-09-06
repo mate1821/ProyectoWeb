@@ -7,5 +7,4 @@ import com.health.project.entitys.Usuario;
 public interface UsuarioRepository 
 extends JpaRepository<Usuario, Long>{
 
-    
 }

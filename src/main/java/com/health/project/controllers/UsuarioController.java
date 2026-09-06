@@ -53,4 +53,5 @@ public String activar(@PathVariable Long id) {
 service.activar(id);
 return "redirect:/usuarios";
 }
+
 }

@@ -1,4 +1,4 @@
-/*
+
 package com.health.project.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,9 +21,15 @@ public class ReservaController {
 
     @GetMapping("/mostrar")
     public String mostrarReservas(Model model) {
-        model.addAttribute("reservas", service.searchAll());
+        model.addAttribute("reservas", service.buscarReservas());
         return "mostrar_reservas";
     }
     
+    @GetMapping("/CrearReserva")
+    public String crearReservas(Model model) {
+        model.addAttribute("reserva", service.buscarReservas());
+        return "reserva-form";
+    }
+
+
 }
-*/
