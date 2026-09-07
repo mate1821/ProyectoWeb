@@ -1,90 +1,34 @@
 package com.health.project.entitys;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.util.Date;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.Transient;
+import java.util.List;
+
+import jakarta.persistence.*;
 
 @Data
+@Getter
+@Setter 
+@NoArgsConstructor 
+@EqualsAndHashCode(callSuper = true)//Para distinguir 2 médicos, que también tenga en cuenta los datos que están en la clase usuario, no solo los de aquí
 @Entity
-public class Medico {
+public class Medico extends Usuario {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-
-    @Column(nullable = false, unique = true)
-    private Long cedula;
-
-    @Column(nullable = false, length = 100)
-    private String nombre;
-
-    @Column(nullable = false)
-    private Date fechaNacimiento;
-
-    @Column(length = 120)
-    private String rol;
-
-    @Column(length = 120)
-    private String telefono;
-
-    @Column(length = 120)
-    private String correo;
-
-    @Column(length = 120)
-    private String contrasena;
-
-    @Column(updatable = false)
-    private String fechaRegistro;
-
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false, length = 30)
+    @ManyToOne
     private Especialidad especialidad;
 
-    @Column(length = 100)
-    private String empleador;
+    @ManyToOne
+    private Espacio espacio;
 
-    @Transient
-    @JoinColumn(name = "hospital_id")
-    private Espacio hospital;
+    @OneToMany (mappedBy = "medico")
+    List<Reserva> reservas;
 
-    public Medico(Integer id, Long cedula, String nombre, Date fechaNacimiento, String rol, String telefono, String correo, String contrasena, String fechaRegistro, Especialidad especialidad, String empleador, Espacio hospital) {
-        this.id = id;
-        this.cedula = cedula;
-        this.nombre = nombre;
-        this.fechaNacimiento = fechaNacimiento;
-        this.rol = rol;
-        this.telefono = telefono;
-        this.correo = correo;
-        this.contrasena = contrasena;
-        this.fechaRegistro = fechaRegistro;
-        this.especialidad = especialidad;
-        this.empleador = empleador;
-        this.hospital = hospital;
-    }
-
-    public enum Especialidad {
-        MEDICINA_GENERAL,
-        PEDIATRIA,
-        CARDIOLOGIA,
-        DERMATOLOGIA,
-        NEUROLOGIA,
-        GINECOLOGIA,
-        ORTOPEDIA,
-        CIRUGIA_GENERAL,
-        OFTALMOLOGIA,
-        UROLOGIA,
-        ENDOCRINOLOGIA,
-        GASTROENTEROLOGIA,
-        ONCOLOGIA,
-        PSIQUIATRIA,
-        NEUMOLOGIA
+    public Medico(Long cedula, String nombre, Date fecha_nacimiento ,String antecedentes , String telefono, String correo, String contrasena, boolean activo) {
+        super(cedula, nombre, fecha_nacimiento, antecedentes, telefono,correo, contrasena, activo);
     }
 }

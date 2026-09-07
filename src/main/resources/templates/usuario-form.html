@@ -10,7 +10,7 @@
 
 <body>
     <h1 th:text="${usuario.id == null ? 'Nuevo usuario' : 'Editar usuario'}"></h1>
-    
+
     <form th:action="@{/usuarios/guardar}" th:object="${usuario}" method="post">
         <input type="hidden" th:field="*{id}">
         <input type="hidden" th:field="*{activo}">
@@ -28,14 +28,22 @@
         <br><br>
 
         <label>Rol:</label>
-        <input type="radio" id="rol-admin" th:field="*{rol}" value="ADMIN">
-        <label for="rol-admin">Administrador</label>
+        <div th:each="r : ${Roles}">
+            <input type="radio" th:id="${'rol-' + r.id}" th:field="*{rol.id}" th:value="${r.id}">
+            <label th:for="${'rol-' + r.id}" th:text="${r.nombre}"></label>
+        </div>
+        <br>
 
-        <input type="radio" id="rol-medico" th:field="*{rol}" value="MEDICO">
-        <label for="rol-medico">Médico</label>
-
-        <input type="radio" id="rol-paciente" th:field="*{rol}" value="PACIENTE">
-        <label for="rol-paciente">Paciente</label>
+        <div>
+            <label for="especialidad">Especialidad (si aplica):</label>
+            <select id="especialidad" name="especialidadId">
+                <option value="">-- Seleccione una especialidad --</option>
+                <option th:each="e : ${Especialidades}" 
+                        th:value="${e.id}" 
+                        th:text="${e.nombreEspecialidad}">
+                </option>
+            </select>
+        </div>
         <br>
 
         <label for="telefono">Teléfono:</label>
@@ -53,4 +61,5 @@
         <button type="submit">Guardar</button>
     </form>
 </body>
+
 </html>

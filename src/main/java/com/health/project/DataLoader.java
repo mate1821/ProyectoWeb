@@ -1,120 +1,224 @@
 package com.health.project;
 
+import com.health.project.repository.EstadoReservaRepository;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.GregorianCalendar;
+import java.util.List;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import com.health.project.entitys.Espacio;
-import com.health.project.entitys.Especialidades;
+import com.health.project.entitys.Especialidad;
+import com.health.project.entitys.EstadoReserva;
 import com.health.project.entitys.Medico;
 import com.health.project.entitys.Reserva;
+import com.health.project.entitys.Rol;
+import com.health.project.entitys.Tipo;
 import com.health.project.entitys.Usuario;
 import com.health.project.repository.ReservaRepository;
+import com.health.project.repository.RolRepository;
+import com.health.project.repository.TipoRepository;
 import com.health.project.repository.UsuarioRepository;
 import com.health.project.repository.EspacioRepository;
-import com.health.project.repository.EspecialidadesRepository;
+import com.health.project.repository.EspecialidadRepository;
 import com.health.project.repository.MedicoRepository;
 
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
-@Component 
-@Transactional 
+
+@Component
+@Transactional
 public class DataLoader implements CommandLineRunner {
 
+        @Autowired
+        private ReservaRepository reservaRepo;
 
-    @Autowired 
-    private ReservaRepository reservaRepo;
+        @Autowired
+        private UsuarioRepository usuarioRepo;
 
-    @Autowired 
-    private UsuarioRepository  usuarioRepo;
+        @Autowired
+        private MedicoRepository medicoRepo;
 
-    @Autowired 
-    private MedicoRepository medicoRepo;
+        @Autowired
+        private EspecialidadRepository especialidadRepo;
 
-    @Autowired 
-    private EspecialidadesRepository especialidadRepo ;
+        @Autowired
+        private EspacioRepository espacioRepo;
 
-    @Autowired 
-    private EspacioRepository espacioRepo;
+        @Autowired
+        private RolRepository rolRepo;
 
-    
+        @Autowired
+        private TipoRepository tipoRepo;
 
-    @Override
-    public void run(String... args) throws Exception {
+        @Autowired
+        private EstadoReservaRepository estadoResRepo;
 
+        @Override
+        public void run(String... args) throws Exception {
 
-// insercion de usuarios 
+                Random random = new Random(42);
 
-        usuarioRepo.save(new Usuario(1001L, "Ana Torres", new GregorianCalendar(1995, 3, 12).getTime(), "Sin antecedentes relevantes", "PACIENTE", "3001234567", "ana.torres@mail.com", "clave123", true));
-        usuarioRepo.save(new Usuario(1002L, "Carlos Ruiz", new GregorianCalendar(1988, 7, 22).getTime(), "Hipertensión controlada", "PACIENTE", "3007654321", "carlos.ruiz@mail.com", "clave123", true));
-        usuarioRepo.save(new Usuario(1003L, "Laura Gómez", new GregorianCalendar(1992, 11, 5).getTime(), null, "MEDICO", "3009876543", "laura.gomez@mail.com", "clave123", true));
-        usuarioRepo.save(new Usuario(1004L, "Pedro Sánchez", new GregorianCalendar(1979, 1, 18).getTime(), null, "ADMIN", "3004561234", "mati67@mail.com", "clave123", true));
-        usuarioRepo.save(new Usuario(1005L, "Sofía Ramírez", new GregorianCalendar(2000, 5, 30).getTime(), "Alergia a la penicilina", "PACIENTE", "3002223344", "sofia.ramirez@mail.com", "clave123", false));
+                // Rol
+                Rol rolMedico = rolRepo.save(new Rol("Medico"));
+                Rol rolPaciente = rolRepo.save(new Rol("Paciente"));
+                Rol rolAdmin = rolRepo.save(new Rol("Administrador"));
 
+                // Tipos de espacios
+                tipoRepo.save(new Tipo("Consultorio"));
+                tipoRepo.save(new Tipo("Sala de urgencias"));
+                tipoRepo.save(new Tipo("Sala de cirugía"));
+                tipoRepo.save(new Tipo("Laboratorio"));
 
-// Insercion de medicos 
+                // Estados de reserva
+                estadoResRepo.save(new EstadoReserva("Confirmada"));
+                estadoResRepo.save(new EstadoReserva("Cancelada"));
+                estadoResRepo.save(new EstadoReserva("Completada"));
 
+                // Especialidades
+                especialidadRepo.save(new Especialidad("MEDICINA_GENERAL", 50000.0));
+                especialidadRepo.save(new Especialidad("PEDIATRIA", 70000.0));
+                especialidadRepo.save(new Especialidad("CARDIOLOGIA", 120000.0));
+                especialidadRepo.save(new Especialidad("DERMATOLOGIA", 100000.0));
+                especialidadRepo.save(new Especialidad("NEUROLOGIA", 130000.0));
+                especialidadRepo.save(new Especialidad("GINECOLOGIA", 90000.0));
+                especialidadRepo.save(new Especialidad("ORTOPEDIA", 110000.0));
+                especialidadRepo.save(new Especialidad("CIRUGIA_GENERAL", 150000.0));
+                especialidadRepo.save(new Especialidad("OFTALMOLOGIA", 100000.0));
+                especialidadRepo.save(new Especialidad("UROLOGIA", 120000.0));
+                especialidadRepo.save(new Especialidad("ENDOCRINOLOGIA", 100000.0));
+                especialidadRepo.save(new Especialidad("GASTROENTEROLOGIA", 120000.0));
+                especialidadRepo.save(new Especialidad("ONCOLOGIA", 180000.0));
+                especialidadRepo.save(new Especialidad("PSIQUIATRIA", 90000.0));
+                especialidadRepo.save(new Especialidad("NEUMOLOGIA", 110000.0));
 
-        medicoRepo.save(new Medico(null, 2001L, "Laura Gómez", new GregorianCalendar(1985, 4, 10).getTime(), "MEDICO", "3011234567", "laura.gomez@mail.com", "clave123", LocalDateTime.now().toString(), Medico.Especialidad.CARDIOLOGIA, "Clínica del Country", null));
-        medicoRepo.save(new Medico(null, 2002L, "Andrés Bermúdez", new GregorianCalendar(1979, 8, 3).getTime(), "MEDICO", "3017654321", "andres.bermudez@mail.com", "clave123", LocalDateTime.now().toString(), Medico.Especialidad.PEDIATRIA, "Hospital San Rafael", null));
-        medicoRepo.save(new Medico(null, 2003L, "Camila Vargas", new GregorianCalendar(1990, 1, 27).getTime(), "MEDICO", "3019876543", "camila.vargas@mail.com", "clave123", LocalDateTime.now().toString(), Medico.Especialidad.DERMATOLOGIA, "Centro Médico Colsanitas", null));
-        medicoRepo.save(new Medico(null, 2004L, "Juan Restrepo", new GregorianCalendar(1975, 10, 14).getTime(), "MEDICO", "3014561234", "juan.restrepo@mail.com", "clave123", LocalDateTime.now().toString(), Medico.Especialidad.NEUROLOGIA, "Clínica Shaio", null));
-        medicoRepo.save(new Medico(null, 2005L, "Valentina Ríos", new GregorianCalendar(1993, 6, 8).getTime(), "MEDICO", "3012223344", "valentina.rios@mail.com", "clave123", LocalDateTime.now().toString(), Medico.Especialidad.GINECOLOGIA, "Fundación Santa Fe", null));
+                // Espacio:
+                espacioRepo.save(new Espacio("Hospital1", "Consultorio 101", "CRA 45-22",
+                                "Consultorio equipado para consulta general", true));
+                espacioRepo.save(new Espacio("Hospital2", "Consultorio 101", "CRA 45-22",
+                                "Consultorio equipado para consulta general", true));
+                espacioRepo.save(new Espacio("Hospital3", "Consultorio 101", "CRA 45-22",
+                                "Consultorio equipado para consulta general", true));
+                espacioRepo.save(new Espacio("Hospital4", "Consultorio 101", "CRA 45-22",
+                                "Consultorio equipado para consulta general", true));
 
+                // insercion de usuarios
 
-// Espe 
+                usuarioRepo.save(new Usuario(1001L, "Ana Torres", new GregorianCalendar(1995, 3, 12).getTime(),
+                                "Sin antecedentes relevantes", "3001234567", "ana.torres@mail.com", "clave123", true));
+                usuarioRepo.save(new Usuario(1002L, "Carlos Ruiz", new GregorianCalendar(1988, 7, 22).getTime(),
+                                "Hipertensión controlada", "3007654321", "carlos.ruiz@mail.com", "clave123", true));
+                usuarioRepo.save(new Usuario(1003L, "Laura Gómez", new GregorianCalendar(1992, 11, 5).getTime(), null,
+                                "3009876543", "laura.gomez@mail.com", "clave123", true));
+                usuarioRepo.save(new Usuario(1004L, "Pedro Sánchez", new GregorianCalendar(1979, 1, 18).getTime(), null,
+                                "3004561234", "mati67@mail.com", "clave123", true));
+                usuarioRepo.save(new Usuario(1005L, "Sofía Ramírez", new GregorianCalendar(2000, 5, 30).getTime(),
+                                "Alergia a la penicilina", "3002223344", "sofia.ramirez@mail.com", "clave123", false));
 
-        especialidadRepo.save(new Especialidades(null, Medico.Especialidad.MEDICINA_GENERAL.name(), 50000.0));
-        especialidadRepo.save(new Especialidades(null, Medico.Especialidad.PEDIATRIA.name(), 70000.0));
-        especialidadRepo.save(new Especialidades(null, Medico.Especialidad.CARDIOLOGIA.name(), 120000.0));
-        especialidadRepo.save(new Especialidades(null, Medico.Especialidad.DERMATOLOGIA.name(), 100000.0));
-        especialidadRepo.save(new Especialidades(null, Medico.Especialidad.NEUROLOGIA.name(), 130000.0));
-        especialidadRepo.save(new Especialidades(null, Medico.Especialidad.GINECOLOGIA.name(), 90000.0));
-        especialidadRepo.save(new Especialidades(null, Medico.Especialidad.ORTOPEDIA.name(), 110000.0));
-        especialidadRepo.save(new Especialidades(null, Medico.Especialidad.CIRUGIA_GENERAL.name(), 150000.0));
-        especialidadRepo.save(new Especialidades(null, Medico.Especialidad.OFTALMOLOGIA.name(), 100000.0));
-        especialidadRepo.save(new Especialidades(null, Medico.Especialidad.UROLOGIA.name(), 120000.0));
-        especialidadRepo.save(new Especialidades(null, Medico.Especialidad.ENDOCRINOLOGIA.name(), 100000.0));
-        especialidadRepo.save(new Especialidades(null, Medico.Especialidad.GASTROENTEROLOGIA.name(), 120000.0));
-        especialidadRepo.save(new Especialidades(null, Medico.Especialidad.ONCOLOGIA.name(), 180000.0));
-        especialidadRepo.save(new Especialidades(null, Medico.Especialidad.PSIQUIATRIA.name(), 90000.0));
-        especialidadRepo.save(new Especialidades(null, Medico.Especialidad.NEUMOLOGIA.name(), 110000.0));
+                // Insercion de medicos
+                Medico med1 = new Medico(2001L, "Laura Gómez", new GregorianCalendar(1985, 4, 10).getTime(), "Ninguno",
+                                "3011234567", "laura.gomez@mail.com", "clave123", true);
+                Medico med2 = new Medico(2002L, "Andrés Bermúdez", new GregorianCalendar(1979, 8, 3).getTime(),
+                                "Ninguno", "3017654321", "andres.bermudez@mail.com", "clave123", true);
+                Medico med3 = new Medico(2003L, "Andrés Bermúdez", new GregorianCalendar(1979, 8, 3).getTime(),
+                                "Ninguno", "3017654321", "andres.bermudez@mail.com", "clave123", true);
 
-// reservas
+                medicoRepo.save(med1);
+                medicoRepo.save(med2);
+                medicoRepo.save(med3);
 
+                // LOS DATOS QUE SON LLAVES FORÁNEAS SE ELIGEN ALEATORIAMENTE AQUI
+                int cantidadRoles = rolRepo.findAll().size();
+                for (Usuario u : usuarioRepo.findAll()) {
+                        if (u instanceof Medico) {
+                                u.setRol(rolMedico);
+                        } else {
+                                int randomNum = random.nextInt(2, cantidadRoles + 1);
+                                Rol r = rolRepo.findById((long) randomNum).get();
+                                u.setRol(r);
+                        }
+                        usuarioRepo.save(u);
+                }
 
-        Usuario u1 = usuarioRepo.findById(1L).orElse(null);
-        Usuario u2 = usuarioRepo.findById(2L).orElse(null);
-        Usuario u3 = usuarioRepo.findById(3L).orElse(null);
+                int cantidadEspecialidades = especialidadRepo.findAll().size();
+                int cantidadEspacios = espacioRepo.findAll().size();
 
-        Medico m1 = medicoRepo.findById(4L).orElse(null);
-        Medico m2 = medicoRepo.findById(5L).orElse(null);
-        Medico m3 = medicoRepo.findById(6L).orElse(null);
+                for (Medico m : medicoRepo.findAll()) {
 
-        reservaRepo.save(new Reserva(null, u1, LocalDate.of(2026, 9, 10), LocalTime.of(9, 0), LocalTime.of(9, 30), Reserva.EstadoReserva.PENDIENTE, LocalDateTime.now(), "Primera consulta", m1, 120000, null));
-        reservaRepo.save(new Reserva(null, u2, LocalDate.of(2026, 9, 11), LocalTime.of(10, 0), LocalTime.of(10, 30), Reserva.EstadoReserva.CONFIRMADA, LocalDateTime.now(), "Control mensual", m2, 70000, null));
-        reservaRepo.save(new Reserva(null, u3, LocalDate.of(2026, 9, 12), LocalTime.of(14, 0), LocalTime.of(14, 30), Reserva.EstadoReserva.PENDIENTE, LocalDateTime.now(), null, m3, 130000, null));
-        reservaRepo.save(new Reserva(null, u1, LocalDate.of(2026, 9, 15), LocalTime.of(16, 0), LocalTime.of(16, 30), Reserva.EstadoReserva.CANCELADA, LocalDateTime.now(), "Paciente canceló", m2, 70000, null));
-        reservaRepo.save(new Reserva(null, u2, LocalDate.of(2026, 9, 20), LocalTime.of(11, 0), LocalTime.of(11, 30), Reserva.EstadoReserva.COMPLETADA, LocalDateTime.now(), "Consulta finalizada", m1, 120000, null));
+                        int randomNum1 = random.nextInt(1, cantidadEspecialidades + 1);
+                        Especialidad especialidad = especialidadRepo.findById((long) randomNum1).get();
+                        int randomNum2 = random.nextInt(1, cantidadEspacios + 1);
+                        Espacio espacio = espacioRepo.findById((long) randomNum2).get();
+                        m.setEspecialidad(especialidad);
+                        m.setEspacio(espacio);
+                        medicoRepo.save(m);
+                }
 
-// Espacio 
+                int cantidadTipos = tipoRepo.findAll().size();
 
+                for (Espacio e : espacioRepo.findAll()) {
 
+                        int randomNum1 = random.nextInt(1, cantidadTipos + 1);
+                        Tipo t = tipoRepo.findById((long) randomNum1).get();
+                        e.setTipo(t);
+                        espacioRepo.save(e);
+                }
 
-        espacioRepo.save(new Espacio(null, "Consultorio 101", "Consultorio", "Consultorio equipado para consulta general", "Piso 1, Ala Norte", "https://example.com/img/consultorio101.jpg", true));
-        espacioRepo.save(new Espacio(null, "Consultorio 102", "Consultorio", "Consultorio para especialidades", "Piso 1, Ala Norte", "https://example.com/img/consultorio102.jpg", true));
-        espacioRepo.save(new Espacio(null, "Sala de Cirugía A", "Quirófano", "Quirófano equipado para cirugías generales", "Piso 3, Ala Este", "https://example.com/img/quirofanoA.jpg", true));
-        espacioRepo.save(new Espacio(null, "Consultorio 205", "Consultorio", "Consultorio pediátrico", "Piso 2, Ala Sur", "https://example.com/img/consultorio205.jpg", false));
-        espacioRepo.save(new Espacio(null, "Sala de Imágenes", "Diagnóstico", "Sala equipada con rayos X y ecógrafo", "Piso 1, Ala Sur", "https://example.com/img/imagenes.jpg", true));
+                // reservas
 
+                // Filtramos usuarios que NO sean médicos (solo pacientes)
+                List<Usuario> soloPacientes = new ArrayList<>();
+                for (Usuario u : usuarioRepo.findAll()) {
+                        if (!(u instanceof Medico)) {
+                                soloPacientes.add(u);
+                        }
+                }
 
+        
 
-    }
+                Reserva r1 = new Reserva(LocalDate.of(2026, 9, 10), LocalTime.of(9, 0), LocalTime.of(9, 30),
+                                LocalDateTime.now(), "Primera consulta", 120000);
+                Reserva r2 = new Reserva(LocalDate.of(2026, 9, 11), LocalTime.of(10, 0), LocalTime.of(10, 30),
+                                LocalDateTime.now(), "Control mensual", 70000);
+                Reserva r3 = new Reserva(LocalDate.of(2026, 9, 12), LocalTime.of(14, 0), LocalTime.of(14, 30),
+                                LocalDateTime.now(), null, 130000);
+                Reserva r4 = new Reserva(LocalDate.of(2026, 9, 15), LocalTime.of(16, 0), LocalTime.of(16, 30),
+                                LocalDateTime.now(), "Paciente canceló", 70000);
+
+                reservaRepo.save(r1);
+                reservaRepo.save(r2);
+                reservaRepo.save(r3);
+                reservaRepo.save(r4);
+                
+                List<Medico> todosLosMedicos = medicoRepo.findAll();
+                int cantidadMedicos = todosLosMedicos.size();
+                int cantidadPacientes = soloPacientes.size();
+                int cantidadEstados = estadoResRepo.findAll().size();
+
+                for (Reserva r : reservaRepo.findAll()) {
+                        int randomPaciente = random.nextInt(0, cantidadPacientes);
+                        Usuario paciente = soloPacientes.get(randomPaciente);
+
+                        int randomMedico = random.nextInt(0, cantidadMedicos);
+                        Medico medico = todosLosMedicos.get(randomMedico);
+
+                        int randomEstado = random.nextInt(1, cantidadEstados + 1);
+                        EstadoReserva estado = estadoResRepo.findById((long) randomEstado).get();
+
+                        r.setUsuario(paciente);
+                        r.setMedico(medico);
+                        r.setEstado(estado);
+                        reservaRepo.save(r);
+                }
+
+                
+
+        }
 
 }
-        

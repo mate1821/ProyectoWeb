@@ -15,6 +15,8 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 
 import java.time.LocalDateTime;
 
@@ -30,8 +32,10 @@ public class Reserva {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long idReserva;
-    @Transient
+    
+    @ManyToOne //Se pone sin el mapped porque esta es la clase dominante.
     public Usuario usuario;
+
     @Column(nullable = false)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     public LocalDate fecha;
@@ -41,39 +45,31 @@ public class Reserva {
     @Column(nullable = false)
     @DateTimeFormat(pattern = "HH:mm")
     public LocalTime horaFin;
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false, length = 200)
+
+    @ManyToOne 
     public EstadoReserva estado;
+
     @Column(nullable = false, updatable = false)
     public LocalDateTime fechaSolicitud;
     @Column(length = 255)
     public String observaciones;
-    @Transient
+    
+    @ManyToOne //Se pone sin el mapped porque esta es la clase dominante. 
     public Medico medico;
+
+
     @Column(nullable = false)
     public double total;
     // parche mientras el 67 de confianza las pone
-    @Transient
-    public Espacio espacio;    
-    public enum EstadoReserva {
-    PENDIENTE,
-    CONFIRMADA,
-    CANCELADA,
-    COMPLETADA
-}
 
 
-public Reserva(Usuario usuario, LocalDate fecha, LocalTime horaInicio, LocalTime horaFin, EstadoReserva estado, LocalDateTime fechaSolicitud, String observaciones, Medico medico, double total, Espacio espacio) {
-    this.usuario = usuario;
+public Reserva(LocalDate fecha, LocalTime horaInicio, LocalTime horaFin, LocalDateTime fechaSolicitud, String observaciones, double total) {
     this.fecha = fecha;
     this.horaInicio = horaInicio;
     this.horaFin = horaFin;
-    this.estado = estado;
     this.fechaSolicitud = fechaSolicitud;
     this.observaciones = observaciones;
-    this.medico = medico;
     this.total = total;
-    this.espacio = espacio;
 }
 
 
@@ -82,5 +78,3 @@ public Reserva(Usuario usuario, LocalDate fecha, LocalTime horaInicio, LocalTime
 
 
 }
-
-// Servicios epseciales a una resevacion

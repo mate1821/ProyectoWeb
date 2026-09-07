@@ -5,26 +5,27 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.health.project.entitys.Especialidades;
-import com.health.project.repository.EspecialidadesRepository;
+import com.health.project.entitys.Especialidad;
+import com.health.project.repository.EspecialidadRepository;
+
 
 @Service
-public class EspecialidadServiceImpl implements EspecialidadesService {
+public class EspecialidadServiceImpl implements EspecialidadService {
     @Autowired
-    private EspecialidadesRepository repo;
+    private EspecialidadRepository repo;
 
     @Override
-    public List<Especialidades> buscarTodos() {
+    public List<Especialidad> buscarTodos() {
         return repo.findAll();
     }
 
     @Override
-    public Especialidades buscarPorId(Long id) {
+    public Especialidad buscarPorId(Long id) {
         return repo.findById(id).orElse(null);
     }
 
     @Override
-    public void guardar(Especialidades especialidad) {
+    public void guardar(Especialidad especialidad) {
         repo.save(especialidad);
     }
 
