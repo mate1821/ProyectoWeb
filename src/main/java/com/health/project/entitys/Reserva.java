@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -15,6 +16,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 
@@ -61,6 +63,9 @@ public class Reserva {
     @Column(nullable = false)
     public double total;
     // parche mientras el 67 de confianza las pone
+
+    @ManyToMany 
+    List<Servicio> servicios;
 
 
 public Reserva(LocalDate fecha, LocalTime horaInicio, LocalTime horaFin, LocalDateTime fechaSolicitud, String observaciones, double total) {

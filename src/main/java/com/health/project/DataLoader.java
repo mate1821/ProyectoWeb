@@ -19,10 +19,12 @@ import com.health.project.entitys.EstadoReserva;
 import com.health.project.entitys.Medico;
 import com.health.project.entitys.Reserva;
 import com.health.project.entitys.Rol;
+import com.health.project.entitys.Servicio;
 import com.health.project.entitys.Tipo;
 import com.health.project.entitys.Usuario;
 import com.health.project.repository.ReservaRepository;
 import com.health.project.repository.RolRepository;
+import com.health.project.repository.ServicioRepository;
 import com.health.project.repository.TipoRepository;
 import com.health.project.repository.UsuarioRepository;
 import com.health.project.repository.EspacioRepository;
@@ -60,6 +62,9 @@ public class DataLoader implements CommandLineRunner {
         @Autowired
         private EstadoReservaRepository estadoResRepo;
 
+        @Autowired
+        private ServicioRepository servicioRepo;
+
         @Override
         public void run(String... args) throws Exception {
 
@@ -80,6 +85,11 @@ public class DataLoader implements CommandLineRunner {
                 estadoResRepo.save(new EstadoReserva("Confirmada"));
                 estadoResRepo.save(new EstadoReserva("Cancelada"));
                 estadoResRepo.save(new EstadoReserva("Completada"));
+
+                // Servicios
+                servicioRepo.save(new Servicio("Nocturno", 50000.00));
+                servicioRepo.save(new Servicio("Festivo", 60000.00));
+                servicioRepo.save(new Servicio("Domicilio", 70000.00));
 
                 // Especialidades
                 especialidadRepo.save(new Especialidad("MEDICINA_GENERAL", 50000.0));
@@ -180,8 +190,6 @@ public class DataLoader implements CommandLineRunner {
                         }
                 }
 
-        
-
                 Reserva r1 = new Reserva(LocalDate.of(2026, 9, 10), LocalTime.of(9, 0), LocalTime.of(9, 30),
                                 LocalDateTime.now(), "Primera consulta", 120000);
                 Reserva r2 = new Reserva(LocalDate.of(2026, 9, 11), LocalTime.of(10, 0), LocalTime.of(10, 30),
@@ -195,7 +203,7 @@ public class DataLoader implements CommandLineRunner {
                 reservaRepo.save(r2);
                 reservaRepo.save(r3);
                 reservaRepo.save(r4);
-                
+
                 List<Medico> todosLosMedicos = medicoRepo.findAll();
                 int cantidadMedicos = todosLosMedicos.size();
                 int cantidadPacientes = soloPacientes.size();
@@ -217,7 +225,20 @@ public class DataLoader implements CommandLineRunner {
                         reservaRepo.save(r);
                 }
 
-                
+                int cantidadServicios = servicioRepo.findAll().size();
+                int cantidadServiciosPorReserva = 2;
+                for (Reserva r : reservaRepo.findAll()) {
+
+                        for (int i = 0; i < cantidadServiciosPorReserva; i++) {
+                                int randomNum1 = random.nextInt(1, cantidadServicios + 1);
+                                Servicio s = servicioRepo.findById((long) randomNum1).get();
+                                if (r.getServicios() == null) {
+                                        r.setServicios(new ArrayList<>());
+                                }
+                                r.getServicios().add(s);
+                                reservaRepo.save(r);
+                        }
+                }
 
         }
 
