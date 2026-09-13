@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.health.project.entitys.Usuario;
+import com.health.project.errors.UsuarioDuplicado;
 import com.health.project.repository.UsuarioRepository;
 
 @Service
@@ -23,6 +24,9 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
     @Override
     public void guardar(Usuario usuario){
+        if (usuario.getId() == null && repo.existsByCedulaAndRol(usuario.getCedula(), usuario.getRol())) {
+        throw new UsuarioDuplicado(usuario.getCedula(), usuario.getRol());
+    }
         repo.save(usuario);
     }
     @Override

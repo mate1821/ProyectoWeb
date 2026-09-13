@@ -3,6 +3,7 @@ package com.health.project.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import com.health.project.entitys.Rol;
 import com.health.project.entitys.Usuario;
 
 public interface UsuarioRepository 
@@ -14,5 +15,7 @@ extends JpaRepository<Usuario, Long>{
             """)
 
     Long pacientesTerceraEdad();
+
+    public boolean existsByCedulaAndRol(Long cedula, Rol rol);
 
 }

@@ -31,7 +31,7 @@ public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id; // Integer puede ser null
-    @Column(nullable = false, length = 100, unique=true)
+    @Column(nullable = false, length = 100)
     private Long cedula;
     @Column(nullable = false, length = 100)
     private String nombre;
