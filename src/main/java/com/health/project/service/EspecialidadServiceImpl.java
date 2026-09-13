@@ -28,5 +28,14 @@ public class EspecialidadServiceImpl implements EspecialidadService {
     public void guardar(Especialidad especialidad) {
         repo.save(especialidad);
     }
+    public List<Object[]> conteoDeCitasporEspecialidad() {
+        return repo.conteoDeCitasporEspecialidad();
+    }
+
+   
+
+   
+
+    
 
 }

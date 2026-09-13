@@ -16,6 +16,8 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
@@ -65,6 +67,11 @@ public class Reserva {
     // parche mientras el 67 de confianza las pone
 
     @ManyToMany 
+    @JoinTable(
+        name = "ServicioXReserva", // Nombre de la tabla intermedia física
+        joinColumns = @JoinColumn(name = "reserva_id"),
+        inverseJoinColumns = @JoinColumn(name = "servicio_id")
+    )
     List<Servicio> servicios;
 
 

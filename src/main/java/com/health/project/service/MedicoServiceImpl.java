@@ -61,5 +61,8 @@ public class MedicoServiceImpl implements MedicoService {
 
         medicoRepository.save(medico);
     }
+     public List<Object[]> medicosMasCotizados() {
+        return medicoRepository.medicosMasCotizados();
+    }
 }
 

@@ -42,5 +42,9 @@ public class UsuarioServiceImpl implements UsuarioService {
         }
     }
 
+     public Long pacientesTerceraEdad() {
+        return repo.pacientesTerceraEdad();
+    }
+
     
 }

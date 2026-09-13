@@ -20,5 +20,8 @@ public class ServicioServiceImpl implements ServicioService{
     public Servicio searchById(Long id) {
         return repo.findById(id).orElseThrow();
     }
+    public List<Object[]> serviciosEnOrden() {
+        return repo.serviciosEnOrden();
+    }
     
 }

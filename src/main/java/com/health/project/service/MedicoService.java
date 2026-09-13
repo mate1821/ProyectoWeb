@@ -15,5 +15,7 @@ public interface MedicoService {
 
     void guardarMedicoDesdeUsuario(Usuario usuario, Long especialidadId);
 
+    List<Object[]> medicosMasCotizados();
+
 
 }

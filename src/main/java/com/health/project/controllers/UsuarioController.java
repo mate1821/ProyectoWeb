@@ -1,5 +1,7 @@
 package com.health.project.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -80,5 +82,7 @@ public class UsuarioController {
         usuarioService.activar(id);
         return "redirect:/usuarios";
     }
+
+    
 
 }

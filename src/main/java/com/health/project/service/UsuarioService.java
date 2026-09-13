@@ -10,4 +10,5 @@ public interface UsuarioService {
     void guardar(Usuario usuario);
     void desactivar(Long id);
     void activar (Long id);
+    Long pacientesTerceraEdad();
 }

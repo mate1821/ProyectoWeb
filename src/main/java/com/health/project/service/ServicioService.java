@@ -7,5 +7,6 @@ import com.health.project.entitys.Servicio;
 public interface ServicioService {
     public List<Servicio> searchAll();
     public Servicio searchById(Long id);
+    List<Object[]> serviciosEnOrden();
 
 }
