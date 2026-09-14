@@ -65,10 +65,12 @@ public class MedicoServiceImpl implements MedicoService {
             Especialidad esp = repoEspecialidad.findById(especialidadId).orElse(null);
             medico.setEspecialidad(esp);
         }
+
         if (espacioId != null) {
             Espacio espacio = repoEspacio.findById(espacioId).orElse(null);
             medico.setEspacio(espacio);
         }
+
 
 
 
