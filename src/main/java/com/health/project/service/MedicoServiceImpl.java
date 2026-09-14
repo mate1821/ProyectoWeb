@@ -61,8 +61,12 @@ public class MedicoServiceImpl implements MedicoService {
 
         medicoRepository.save(medico);
     }
-     public List<Object[]> medicosMasCotizados() {
+    public List<Object[]> medicosMasCotizados() {
         return medicoRepository.medicosMasCotizados();
     }
+    
+    public List<Medico> buscarPorEspecialidad(Long especialidadId) {
+    return medicoRepository.findByEspecialidadId(especialidadId);
+}
 }
 
