@@ -48,14 +48,8 @@
     <br>
 
     <br>
-    <label for="fecha_fin">Ingrese la hora de finalizacion </label>
-        <input type="time" id="fecha_fin" th:field="*{horaFin}" required>
-        <br>
-
-    <br>
-
     <label for="observaciones">Ingrese observaciones de la cita</label>
-        <input type="text" id="servicioIds" th:field="*{observaciones}" required>
+        <input type="text" id="observaciones" th:field="*{observaciones}" required>
         <br>
     <br>
     <div th:each="e : ${servicios}">
@@ -63,12 +57,10 @@
         name="servicioIds"
         th:value="${e.id}">
         <span th:text="${e.nombre + ' - ' + e.costo}"></span>
-
 </div>
     <button type="submit">Guardar</button>
 
 </form>
-
 
 </body>
 </html>

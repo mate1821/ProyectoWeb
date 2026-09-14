@@ -54,6 +54,8 @@ public class ReservaController {
     @GetMapping("/mostrar")
     public String mostrarReservas(Model model) {
         model.addAttribute("reservas", service.buscarReservas());
+        model.addAttribute("estados", estadoService.buscarTodos());
+
         return "mostrar_reservas";
     }
     
@@ -74,8 +76,7 @@ public class ReservaController {
 
 
 @PostMapping("/guardar")
-public String guardarReserva(@ModelAttribute Reserva reserva,
-@RequestParam(name = "servicioIds", required = false) List<Long> servicioIds,@RequestParam(required = false) Long pacienteId,@RequestParam(required = false) Long medicoId) {
+public String guardarReserva(@ModelAttribute Reserva reserva,@RequestParam(name = "servicioIds", required = false) List<Long> servicioIds,@RequestParam(required = false) Long pacienteId,@RequestParam(required = false) Long medicoId) {
 
     reserva.setUsuario(pacienteService.buscarPorId(pacienteId));
     reserva.setMedico(medService.buscarPorId(medicoId));
@@ -99,10 +100,22 @@ double total = reserva.getMedico().getEspecialidad().getCosto();
             System.out.println(s.getNombre());
         }
     }
+    if (reserva.getHoraInicio() != null) {
+    reserva.setHoraFin(reserva.getHoraInicio().plusHours(1));
+    }
 
     reserva.setTotal(total);
     service.guardar(reserva);
 
     return "redirect:/reservas/mostrar";
 }
+
+@PostMapping("/cambiarEstado")
+public String cambiarEstado (@RequestParam Long idReserva,@RequestParam Long idEstado){
+    Reserva reserva = service.buscarPorId(idReserva);
+    reserva.setEstado(estadoService.buscarPorId(idEstado));
+    service.guardar(reserva);
+    return "redirect:/reservas/mostrar";
+}
+
 }
