@@ -28,7 +28,7 @@
 
     <label for="medico">Seleccione el médico:</label>
     <br>
-    <select id="medico" name="medicoId">
+    <select id="medico" name="medicoId" required>
         <option value="">Seleccione un médico</option>
         <option th:each="m : ${medicos}"
                 th:value="${m.id}"

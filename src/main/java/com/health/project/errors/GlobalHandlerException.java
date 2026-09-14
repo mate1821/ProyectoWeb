@@ -14,5 +14,12 @@ public class GlobalHandlerException {
         model.addAttribute("error", ex.getMessage());
         return "usuarioDuplicado";
     }
-    
+
+    // Esta excepción valida que haya médicos para la especialidad seleccionada 
+    @ExceptionHandler(MedicoNoSeleccionadoException.class)
+    public String handlerMedicoNoSeleccionado( MedicoNoSeleccionadoException ex, Model model){ 
+        model.addAttribute("error", ex.getMessage()); 
+        return "medicoNoSeleccionado"; 
+    }
+
 }

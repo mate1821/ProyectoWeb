@@ -9,6 +9,7 @@ import com.health.project.entitys.Espacio;
 import com.health.project.entitys.Especialidad;
 import com.health.project.entitys.Medico;
 import com.health.project.entitys.Usuario;
+import com.health.project.errors.MedicoNoSeleccionadoException;
 import com.health.project.repository.EspacioRepository;
 import com.health.project.repository.EspecialidadRepository;
 import com.health.project.repository.MedicoRepository;
@@ -79,9 +80,17 @@ public class MedicoServiceImpl implements MedicoService {
     public List<Object[]> medicosMasCotizados() {
         return medicoRepository.medicosMasCotizados();
     }
-    
+
     public List<Medico> buscarPorEspecialidad(Long especialidadId) {
-    return medicoRepository.findByEspecialidadId(especialidadId);
+    Especialidad especialidad = repoEspecialidad.findById(especialidadId).orElse(null);
+    List<Medico> medicos = medicoRepository.findByEspecialidadId(especialidadId);
+    if (medicos.isEmpty()) {
+        throw new MedicoNoSeleccionadoException(
+                especialidad.getNombreEspecialidad()
+        );
+    }
+    return medicos;
+    }
 }
-}
+
 
