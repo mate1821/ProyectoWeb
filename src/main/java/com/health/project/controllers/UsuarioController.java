@@ -64,6 +64,7 @@ public class UsuarioController {
         }
         else {
             usuarioService.guardar(usuario);
+            return "redirect:/usuarios/Inicio/"+usuario.getId();
         }
         return "redirect:/usuarios";
     }
@@ -88,6 +89,18 @@ public class UsuarioController {
         usuarioService.activar(id);
         return "redirect:/usuarios";
     }
+    
+
+    @GetMapping("/Inicio/{id}")
+    public String inicio(@PathVariable Long id, Model model) {
+
+    model.addAttribute("usuarioId", id);
+
+    return "inicioUsuario";
+
+}
+
+
 
     
 

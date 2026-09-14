@@ -24,6 +24,8 @@ public interface ReservaService {
 
     void confirmar(Long id);
 
+    List<Reserva> misReservas(Long id);
+
 
 }
 

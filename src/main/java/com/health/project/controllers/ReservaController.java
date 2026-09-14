@@ -51,6 +51,18 @@ public class ReservaController {
 
 
 
+@GetMapping("/mostrarMisReservas/{id}")
+public String mostrarMisReservas(@PathVariable Long id, Model model) {
+
+model.addAttribute("reservas", service.misReservas(id));
+model.addAttribute("estados", estadoService.buscarTodos());
+return "mostrar_reservas";
+
+}
+
+
+
+
     @GetMapping("/mostrar")
     public String mostrarReservas(Model model) {
         model.addAttribute("reservas", service.buscarReservas());
@@ -107,7 +119,7 @@ double total = reserva.getMedico().getEspecialidad().getCosto();
     reserva.setTotal(total);
     service.guardar(reserva);
 
-    return "redirect:/reservas/mostrar";
+    return "redirect:/reservas/mostrarMisReservas/"+ reserva.getUsuario().getId();
 }
 
 @PostMapping("/cambiarEstado")
@@ -115,7 +127,7 @@ public String cambiarEstado (@RequestParam Long idReserva,@RequestParam Long idE
     Reserva reserva = service.buscarPorId(idReserva);
     reserva.setEstado(estadoService.buscarPorId(idEstado));
     service.guardar(reserva);
-    return "redirect:/reservas/mostrar";
+    return "redirect:/reservas/mostrarMisReservas/"+ reserva.getUsuario().getId();
 }
 
 }

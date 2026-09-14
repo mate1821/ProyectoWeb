@@ -60,11 +60,10 @@ public class ReservaServiceImpl implements ReservaService {
         }
     }
 
-
-
-
-
-
-
+    @Override
+    public List<Reserva> misReservas(Long id) {
+        return repo.findMisReservas(id);
+    
+}
 
 }
