@@ -29,6 +29,12 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
         repo.save(usuario);
     }
+
+    @Override 
+    public Long consultarId (Usuario usuario) {
+        return usuario.getId();
+    }
+
     @Override
     public void desactivar(Long id){
         Usuario usuario = buscarPorId(id);
@@ -46,7 +52,7 @@ public class UsuarioServiceImpl implements UsuarioService {
         }
     }
 
-     public Long pacientesTerceraEdad() {
+    public Long pacientesTerceraEdad() {
         return repo.pacientesTerceraEdad();
     }
 

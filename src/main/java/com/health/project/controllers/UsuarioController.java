@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.health.project.entitys.Rol;
 import com.health.project.entitys.Usuario;
+import com.health.project.service.EspacioService;
 import com.health.project.service.EspecialidadService;
 import com.health.project.service.MedicoService;
 import com.health.project.service.RolService;
@@ -34,6 +35,9 @@ public class UsuarioController {
     @Autowired 
     private MedicoService medicoService;
 
+    @Autowired 
+    private EspacioService espacioService;
+
     @GetMapping
     public String listar(Model model) {
         model.addAttribute("usuarios", usuarioService.buscarTodos());
@@ -45,17 +49,18 @@ public class UsuarioController {
         model.addAttribute("usuario", new Usuario());
         model.addAttribute("Roles", rolService.searchAll());
         model.addAttribute("Especialidades", espService.buscarTodos());
+        model.addAttribute("Espacios", espacioService.buscarTodos());
         return "usuario-form";
     }
 
     @PostMapping("/guardar")
-    public String guardar(@ModelAttribute Usuario usuario, @RequestParam(value = "especialidadId", required = false) Long especialidadId) {
+    public String guardar(@ModelAttribute Usuario usuario, @RequestParam(value = "especialidadId", required = false) Long especialidadId,@RequestParam(value = "espacioId", required = false) Long espacioId) {
         Rol rol = rolService.searchById(usuario.getRol().getId());
         usuario.setRol(rol);
 
         //Si el roll es medico, que se usen los metodos del servicio de médico
         if (rol != null && "Medico".equalsIgnoreCase(rol.getNombre())) {
-            medicoService.guardarMedicoDesdeUsuario(usuario, especialidadId);
+            medicoService.guardarMedicoDesdeUsuario(usuario, especialidadId, espacioId);
         }
         else {
             usuarioService.guardar(usuario);
@@ -68,6 +73,7 @@ public class UsuarioController {
         model.addAttribute("usuario", usuarioService.buscarPorId(id));
         model.addAttribute("Roles", rolService.searchAll());
         model.addAttribute("Especialidades", espService.buscarTodos());
+        model.addAttribute("Espacios", espacioService.buscarTodos());
         return "usuario-form";
     }
 

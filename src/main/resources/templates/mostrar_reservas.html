@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -33,7 +34,7 @@
                     <td th:text="${reserva.fecha}"></td>
                     <td th:text="${reserva.horaInicio}"></td>
                     <td th:text="${reserva.horaFin}"></td>
-                    <td th:text="${reserva.medico.especialidad.costo}"></td>
+                    <td th:text="${reserva.total}"></td>
                     <td th:text="${reserva.medico.nombre}"></td>
                     <td>
                         <span class="estado" th:text="${reserva.estado.nombre}"></span>

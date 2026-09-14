@@ -30,4 +30,7 @@ public class Servicio {
         this.nombre = nombre;
         this.costo = costo;
     }
+    
+    public Servicio() {
+    }
 }

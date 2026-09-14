@@ -26,12 +26,5 @@ public interface EspecialidadRepository extends JpaRepository<Especialidad, Long
             order by conteo DESC
             """)
     List<Object[]> conteoDeCitasporEspecialidad();
-
-
-
-      
-    
-
-
     
 }

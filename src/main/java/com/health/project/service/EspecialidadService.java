@@ -19,8 +19,4 @@ public interface EspecialidadService {
     List<Object[]> conteoDeCitasporEspecialidad();
 
     
-
-    
-   
-
 }

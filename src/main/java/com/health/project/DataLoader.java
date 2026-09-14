@@ -85,6 +85,7 @@ public class DataLoader implements CommandLineRunner {
                 estadoResRepo.save(new EstadoReserva("Confirmada"));
                 estadoResRepo.save(new EstadoReserva("Cancelada"));
                 estadoResRepo.save(new EstadoReserva("Completada"));
+                estadoResRepo.save(new EstadoReserva("Desactivada"));
 
                 // Servicios
                 servicioRepo.save(new Servicio("Nocturno", 50000.00));
@@ -182,7 +183,7 @@ public class DataLoader implements CommandLineRunner {
 
                 // reservas
 
-                // Filtramos usuarios que NO sean médicos (solo pacientes)
+                // Filtramos usuarios que NO sean médicos (solo pacientes) 
                 List<Usuario> soloPacientes = new ArrayList<>();
                 for (Usuario u : usuarioRepo.findAll()) {
                         if (!(u instanceof Medico)) {

@@ -5,9 +5,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.health.project.entitys.Espacio;
 import com.health.project.entitys.Especialidad;
 import com.health.project.entitys.Medico;
 import com.health.project.entitys.Usuario;
+import com.health.project.repository.EspacioRepository;
 import com.health.project.repository.EspecialidadRepository;
 import com.health.project.repository.MedicoRepository;
 
@@ -18,6 +20,11 @@ public class MedicoServiceImpl implements MedicoService {
 
     @Autowired 
     private EspecialidadRepository repoEspecialidad;
+
+    @Autowired 
+    private EspacioRepository repoEspacio;
+
+
 
     @Override
     public List<Medico> buscarTodos() {
@@ -35,7 +42,7 @@ public class MedicoServiceImpl implements MedicoService {
     }
 
     @Override
-    public void guardarMedicoDesdeUsuario(Usuario usuario, Long especialidadId) {
+    public void guardarMedicoDesdeUsuario(Usuario usuario, Long especialidadId, Long espacioId) {
         Medico medico;
 
         if (usuario.getId() != null) {
@@ -58,8 +65,14 @@ public class MedicoServiceImpl implements MedicoService {
             Especialidad esp = repoEspecialidad.findById(especialidadId).orElse(null);
             medico.setEspecialidad(esp);
         }
+        if (espacioId != null) {
+            Espacio espacio = repoEspacio.findById(espacioId).orElse(null);
+            medico.setEspacio(espacio);
+        }
 
-        medicoRepository.save(medico);
+
+
+    medicoRepository.save(medico);
     }
     public List<Object[]> medicosMasCotizados() {
         return medicoRepository.medicosMasCotizados();

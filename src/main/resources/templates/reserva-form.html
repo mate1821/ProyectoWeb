@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Usuario - Salud</title>
+
+
+</head>
+
+<body>
+    <h1 th:text="${reserva.idReserva == null ? 'Nueva reserva' : 'Editar reserva'}"></h1>
+<form th:action="@{/reservas/Crear/{id}(id=${paciente.id})}" method="get">
+    <label for="especialidad">Seleccione la especialidad:</label>
+    <br>
+    <select id="especialidad" name="especialidadId" onchange="this.form.submit()">
+        <option value="">Seleccione una especialidad</option>
+        <option th:each="e : ${especialidades}"
+                th:value="${e.id}"
+                th:text="${e.nombreEspecialidad}"
+                th:selected="${e.id == especialidadId}"></option>
+    </select>
+</form>
+<br>
+<form th:action="@{/reservas/guardar}" th:object="${reserva}" method="post">
+    <input type="hidden" name="pacienteId" th:value="${paciente.id}">
+
+
+    <label for="medico">Seleccione el médico:</label>
+    <br>
+    <select id="medico" name="medicoId">
+        <option value="">Seleccione un médico</option>
+        <option th:each="m : ${medicos}"
+                th:value="${m.id}"
+                th:text="${m.nombre}"></option>
+    </select>
+    <br>
+    <br>
+    <label for="fecha">Fecha de la reserva</label>
+        <input type="date" id="fecha" th:field="*{fecha}" required>
+        <br>
+    <br>
+
+    <br>
+    <label for="fecha_inicio">Ingrese la hora  inicio</label>
+        <input type="time" id="fecha_inicio" th:field="*{horaInicio}" required>
+        <br>
+    <br>
+
+    <br>
+    <label for="fecha_fin">Ingrese la hora de finalizacion </label>
+        <input type="time" id="fecha_fin" th:field="*{horaFin}" required>
+        <br>
+
+    <br>
+
+    <label for="observaciones">Ingrese observaciones de la cita</label>
+        <input type="text" id="servicioIds" th:field="*{observaciones}" required>
+        <br>
+    <br>
+    <div th:each="e : ${servicios}">
+    <input type="checkbox"
+        name="servicioIds"
+        th:value="${e.id}">
+        <span th:text="${e.nombre + ' - ' + e.costo}"></span>
+
+</div>
+    <button type="submit">Guardar</button>
+
+</form>
+
+
+</body>
+</html>
+
+

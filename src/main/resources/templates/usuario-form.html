@@ -15,7 +15,7 @@
         <input type="hidden" th:field="*{id}">
         <input type="hidden" th:field="*{activo}">
 
-        <label for="cedula">Cédula:</label> 
+        <label for="cedula">Cédula:</label>
         <input type="text" id="cedula" th:field="*{cedula}" required pattern="[0-9]{6,10}" minlength="6" maxlength="10">
         <br>
 
@@ -27,27 +27,9 @@
         <input type="date" id="fecha_nacimiento" th:field="*{fecha_nacimiento}" required>
         <br><br>
 
-        <label>Rol:</label>
-        <div th:each="r : ${Roles}">
-            <input type="radio" th:id="${'rol-' + r.id}" th:field="*{rol.id}" th:value="${r.id}" required>
-            <label th:for="${'rol-' + r.id}" th:text="${r.nombre}"></label>
-        </div>
-        <br>
-
-        <div>
-            <label for="especialidad">Especialidad (si aplica):</label>
-            <select id="especialidad" name="especialidadId">
-                <option value="">-- Seleccione una especialidad --</option>
-                <option th:each="e : ${Especialidades}" 
-                        th:value="${e.id}" 
-                        th:text="${e.nombreEspecialidad}">
-                </option>
-            </select>
-        </div>
-        <br>
-
         <label for="telefono">Teléfono:</label>
-        <input type="text" id="telefono" th:field="*{telefono}" required pattern="[0-9]{10}" minlength="10" maxlength="10">
+        <input type="text" id="telefono" th:field="*{telefono}" required pattern="[0-9]{10}" minlength="10"
+            maxlength="10">
         <br>
 
         <label for="correo">Correo:</label>
@@ -58,8 +40,47 @@
         <input type="password" id="contrasena" th:field="*{contrasena}" required minlength="6" maxlength="120">
         <br><br>
 
+        <label>Rol:</label>
+        <div th:each="r : ${Roles}">
+            <input type="radio" th:id="${'rol-' + r.id}" th:field="*{rol.id}" th:value="${r.id}" required>
+            <label th:for="${'rol-' + r.id}" th:text="${r.nombre}"></label>
+        </div>
+        <br>
+
+        <!--De aqui para adelante, son campos opcionales según la selección de médico o paciente, si es admin, no aparece ninguna-->
+
+        <!--Para paciente-->
+        <div id="seccion-paciente" style="display: none;">
+            <label for="antecedentes">Antecedentes:</label><br>
+            <textarea id="antecedentes" th:field="*{antecedentes}" rows="5" cols="40" placeholder="Escribe si posees enfermedades de herencia o consumes medicamentos"></textarea>
+            <br><br>
+        </div>
+
+        <!--Para el doctor-->
+        <div id="seccion-medico" style="display: none;">
+            <div>
+                <label for="especialidad">Especialidad:</label>
+                <select id="especialidad" name="especialidadId">
+                    <option value="">-- Seleccione una especialidad --</option>
+                    <option th:each="e : ${Especialidades}" th:value="${e.id}" th:text="${e.nombreEspecialidad}"></option>
+                </select>
+            </div>
+            <br>
+
+            <div>
+                <label for="espacio">Espacio:</label>
+                <select id="espacio" name="espacioId">
+                    <option value="">-- Seleccione un espacio --</option>
+                    <option th:each="e : ${Espacios}" th:value="${e.id}" th:text="${e.ubicacion}"></option>
+                </select>
+            </div>
+            <br>
+        </div>
+
+
         <button type="submit">Guardar</button>
     </form>
+    <script th:src="@{/js/usuarioRoles.js}"></script>
 </body>
 
 </html>
