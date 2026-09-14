@@ -13,7 +13,7 @@ public interface MedicoService {
 
     void guardar(Medico medico);
 
-    void guardarMedicoDesdeUsuario(Usuario usuario, Long especialidadId);
+    void guardarMedicoDesdeUsuario(Usuario usuario, Long especialidadId, Long espacioId);
 
     List<Object[]> medicosMasCotizados();
 

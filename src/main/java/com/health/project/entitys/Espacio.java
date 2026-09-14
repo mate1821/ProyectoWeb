@@ -21,7 +21,7 @@ public class Espacio {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idEspacio;
+    private Integer id;
 
     @Column(nullable = false, length = 150)
     private String nombre;
