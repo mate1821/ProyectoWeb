@@ -22,4 +22,11 @@ public class GlobalHandlerException {
         return "medicoNoSeleccionado"; 
     }
 
+    // Esta excepción valida que la reserva exista antes de cambiarle el estado
+    @ExceptionHandler(ReservaNoEncontradaException.class)
+    public String handlerReservaNoEncontrada(ReservaNoEncontradaException ex, Model model) {
+    model.addAttribute("error", ex.getMessage());
+    return "reservaNoEncontrada";
+}
+
 }

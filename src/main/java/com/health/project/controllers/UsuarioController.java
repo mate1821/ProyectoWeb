@@ -20,6 +20,8 @@ import com.health.project.service.MedicoService;
 import com.health.project.service.RolService;
 import com.health.project.service.UsuarioService;
 
+import com.health.project.entitys.Medico;
+
 @Controller
 @RequestMapping("/usuarios")
 public class UsuarioController {
@@ -60,13 +62,13 @@ public class UsuarioController {
 
         //Si el roll es medico, que se usen los metodos del servicio de médico
         if (rol != null && "Medico".equalsIgnoreCase(rol.getNombre())) {
-            medicoService.guardarMedicoDesdeUsuario(usuario, especialidadId, espacioId);
+        Medico medico = medicoService.guardarMedicoDesdeUsuario(usuario, especialidadId, espacioId);
+        return "redirect:/usuarios/InicioMedico/" + medico.getId();
         }
         else {
             usuarioService.guardar(usuario);
             return "redirect:/usuarios/Inicio/"+usuario.getId();
         }
-        return "redirect:/usuarios";
     }
 
     @GetMapping("/editar/{id}")
@@ -89,19 +91,17 @@ public class UsuarioController {
         usuarioService.activar(id);
         return "redirect:/usuarios";
     }
-    
 
     @GetMapping("/Inicio/{id}")
     public String inicio(@PathVariable Long id, Model model) {
+        model.addAttribute("usuarioId", id);
+        return "inicioUsuario";
+    }
 
-    model.addAttribute("usuarioId", id);
-
-    return "inicioUsuario";
-
-}
-
-
-
+    @GetMapping("/InicioMedico/{id}")
+    public String inicioMedico(@PathVariable Long id, Model model) {
+        model.addAttribute("medicoId", id);
+        return "inicioMedico";
+    }
     
-
 }

@@ -17,5 +17,14 @@ public interface ReservaRepository extends JpaRepository<Reserva, Long>{
     WHERE r.usuario.id = :usuarioId
     """)
 List<Reserva> findMisReservas(@Param("usuarioId") Long usuarioId);
+
+@Query("""
+    SELECT r
+    FROM Reserva r
+    WHERE r.medico.id = :medicoId
+    """)
+List<Reserva> findByMedicoId(@Param("medicoId") Long medicoId);
+
+
 }
 

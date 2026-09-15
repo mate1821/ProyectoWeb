@@ -26,6 +26,9 @@ public interface ReservaService {
 
     List<Reserva> misReservas(Long id);
 
+    List<Reserva> reservasDelMedico(Long medicoId);
+
+    void cambiarEstado(Long idReserva, Long idEstado);
 
 }
 

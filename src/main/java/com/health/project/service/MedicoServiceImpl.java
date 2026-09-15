@@ -43,7 +43,7 @@ public class MedicoServiceImpl implements MedicoService {
     }
 
     @Override
-    public void guardarMedicoDesdeUsuario(Usuario usuario, Long especialidadId, Long espacioId) {
+    public Medico guardarMedicoDesdeUsuario(Usuario usuario, Long especialidadId, Long espacioId) {
         Medico medico;
 
         if (usuario.getId() != null) {
@@ -76,6 +76,7 @@ public class MedicoServiceImpl implements MedicoService {
 
 
     medicoRepository.save(medico);
+    return medico;
     }
     public List<Object[]> medicosMasCotizados() {
         return medicoRepository.medicosMasCotizados();
@@ -92,5 +93,3 @@ public class MedicoServiceImpl implements MedicoService {
     return medicos;
     }
 }
-
-

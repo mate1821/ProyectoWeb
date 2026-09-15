@@ -12,6 +12,7 @@ import com.health.project.repository.EstadoReservaRepository;
 import com.health.project.repository.ReservaRepository;
 import java.util.List;
 
+import com.health.project.errors.ReservaNoEncontradaException;
 
 @Service
 public class ReservaServiceImpl implements ReservaService {
@@ -61,9 +62,24 @@ public class ReservaServiceImpl implements ReservaService {
     }
 
     @Override
+    public void cambiarEstado(Long idReserva, Long idEstado) {
+    Reserva reserva = buscarPorId(idReserva);
+    if (reserva == null) {
+        throw new ReservaNoEncontradaException(idReserva);
+    }
+    reserva.setEstado(estadoRepo.findById(idEstado).orElse(null));
+    repo.save(reserva);
+}
+
+    @Override
     public List<Reserva> misReservas(Long id) {
         return repo.findMisReservas(id);
     
+}
+
+    @Override
+     public List<Reserva> reservasDelMedico(Long medicoId) {
+     return repo.findByMedicoId(medicoId);
 }
 
 }

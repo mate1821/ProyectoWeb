@@ -123,11 +123,17 @@ double total = reserva.getMedico().getEspecialidad().getCosto();
 }
 
 @PostMapping("/cambiarEstado")
-public String cambiarEstado (@RequestParam Long idReserva,@RequestParam Long idEstado){
+public String cambiarEstado(@RequestParam Long idReserva, @RequestParam Long idEstado) {
+    service.cambiarEstado(idReserva, idEstado);
     Reserva reserva = service.buscarPorId(idReserva);
-    reserva.setEstado(estadoService.buscarPorId(idEstado));
-    service.guardar(reserva);
-    return "redirect:/reservas/mostrarMisReservas/"+ reserva.getUsuario().getId();
+    return "redirect:/reservas/mostrarMisReservas/" + reserva.getUsuario().getId();
+}
+
+@GetMapping("/mostrarReservasMedico/{id}")
+public String mostrarReservasMedico(@PathVariable Long id, Model model) {
+    model.addAttribute("reservas", service.reservasDelMedico(id));
+    model.addAttribute("estados", estadoService.buscarTodos());
+    return "mostrar_reservas";
 }
 
 }
