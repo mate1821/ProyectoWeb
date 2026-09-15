@@ -13,7 +13,7 @@
 <form th:action="@{/reservas/Crear/{id}(id=${paciente.id})}" method="get">
     <label for="especialidad">Seleccione la especialidad:</label>
     <br>
-    <select id="especialidad" name="especialidadId" onchange="this.form.submit()">
+    <select id="especialidad" name="especialidadId" onchange="this.form.submit()" required>
         <option value="">Seleccione una especialidad</option>
         <option th:each="e : ${especialidades}"
                 th:value="${e.id}"
@@ -37,7 +37,7 @@
     <br>
     <br>
     <label for="fecha">Fecha de la reserva</label>
-        <input type="date" id="fecha" th:field="*{fecha}" required>
+        <input type="date" id="fecha" th:field="*{fecha}" th:min="${fechaMinima}" required>
         <br>
     <br>
 
@@ -49,7 +49,7 @@
 
     <br>
     <label for="observaciones">Ingrese observaciones de la cita</label>
-        <input type="text" id="observaciones" th:field="*{observaciones}" required>
+        <input type="text" id="observaciones" th:field="*{observaciones}" required minlength="5" maxlength="255">
         <br>
     <br>
     <div th:each="e : ${servicios}">

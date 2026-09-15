@@ -78,6 +78,7 @@ return "mostrar_reservas";
     model.addAttribute("especialidades", espService.buscarTodos());
     model.addAttribute("paciente", pacienteService.buscarPorId(id)); 
     model.addAttribute("fechaSolicitud", LocalDateTime.now());
+    model.addAttribute("fechaMinima", LocalDate.now());
     model.addAttribute("especialidadId", especialidadId);
     model.addAttribute("servicios",serviciosService.searchAll());
     model.addAttribute("medicos", especialidadId == null ? List.of() : medService.buscarPorEspecialidad(especialidadId));
