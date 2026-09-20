@@ -11,7 +11,6 @@ import java.util.List;
 
 import jakarta.persistence.*;
 
-@Data
 @Getter
 @Setter 
 @NoArgsConstructor 

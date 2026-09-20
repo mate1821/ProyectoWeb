@@ -87,6 +87,26 @@ return "mostrar_reservas";
 
     }
 
+    @GetMapping("/Editar/{id}")
+    public String editarReservas(@PathVariable Long id, @RequestParam  long reservaId ,Model model, @RequestParam(required = false) Long especialidadId)  {
+
+    Reserva r=service.buscarPorId(reservaId);
+    Long idEsp = especialidadId;
+    if (idEsp == null && r != null && r.getMedico() != null && r.getMedico().getEspecialidad() != null) {
+        idEsp = r.getMedico().getEspecialidad().getId();
+    }
+    model.addAttribute("reserva", r);
+    model.addAttribute("especialidades", espService.buscarTodos());
+    model.addAttribute("paciente", pacienteService.buscarPorId(id)); 
+    model.addAttribute("fechaSolicitud", LocalDateTime.now());
+    model.addAttribute("fechaMinima", LocalDate.now());
+    model.addAttribute("especialidadId", idEsp);
+    model.addAttribute("servicios",serviciosService.searchAll());
+    model.addAttribute("medicos", idEsp == null ? List.of() : medService.buscarPorEspecialidad(idEsp));
+    return "reserva-form";
+
+    }
+
 
 @PostMapping("/guardar")
 public String guardarReserva(@ModelAttribute Reserva reserva,@RequestParam(name = "servicioIds", required = false) List<Long> servicioIds,@RequestParam(required = false) Long pacienteId,@RequestParam(required = false) Long medicoId) {

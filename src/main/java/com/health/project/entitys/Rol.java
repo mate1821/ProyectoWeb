@@ -8,11 +8,15 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
-@Data 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+
 @NoArgsConstructor
+@Getter 
+@Setter 
 
 @Entity 
 public class Rol {

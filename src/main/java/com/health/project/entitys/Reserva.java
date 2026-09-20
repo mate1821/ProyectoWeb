@@ -1,7 +1,10 @@
 package com.health.project.entitys;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
@@ -20,15 +23,15 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
+
 
 import java.time.LocalDateTime;
 
 
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
-
+@Getter 
+@Setter 
 @Entity 
 
 
@@ -64,7 +67,6 @@ public class Reserva {
 
     @Column(nullable = false)
     public double total;
-    // parche mientras el 67 de confianza las pone
 
     @ManyToMany 
     @JoinTable(
