@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.health.project.service.EspecialidadService;
+import com.health.project.service.EstadoResService;
 import com.health.project.service.MedicoService;
 import com.health.project.service.ServicioService;
 import com.health.project.service.UsuarioService;
@@ -31,6 +32,9 @@ public class AdminController {
     @Autowired 
     private ReservaService rersevaService;
 
+    @Autowired 
+    private EstadoResService estadoService;
+
     @GetMapping("/inicio")
     public String panel(Model model) {
         model.addAttribute("citasPorEspecialidad", especialidadService.conteoDeCitasporEspecialidad());
@@ -43,6 +47,7 @@ public class AdminController {
     @GetMapping("/verReservasGlobales")
     public String reservasGlobal(Model model) {
         model.addAttribute("reservas", rersevaService.buscarReservas());
+        model.addAttribute("estados", estadoService.buscarTodos());
         return "mostrar_reservas";
     }
 }
