@@ -1,5 +1,6 @@
 package com.health.project.controllers;
 
+import com.health.project.service.ReservaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,6 +28,9 @@ public class AdminController {
     @Autowired
     private UsuarioService usuarioService;
 
+    @Autowired 
+    private ReservaService rersevaService;
+
     @GetMapping("/inicio")
     public String panel(Model model) {
         model.addAttribute("citasPorEspecialidad", especialidadService.conteoDeCitasporEspecialidad());
@@ -34,5 +38,11 @@ public class AdminController {
         model.addAttribute("serviciosEnOrden", servicioService.serviciosEnOrden());
         model.addAttribute("pacientesTerceraEdad", usuarioService.pacientesTerceraEdad());
         return "admin";
+    }
+
+    @GetMapping("/verReservasGlobales")
+    public String reservasGlobal(Model model) {
+        model.addAttribute("reservas", rersevaService.buscarReservas());
+        return "mostrar_reservas";
     }
 }

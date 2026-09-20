@@ -18,6 +18,6 @@ extends JpaRepository<Usuario, Long>{
 
     public boolean existsByCedulaAndRol(Long cedula, Rol rol);
 
-    Usuario findFirstByCedulaAndContrasena(Long cedula, String contrasena);
+    Usuario findFirstByCorreoAndContrasena(String correo, String contrasena);
 
 }

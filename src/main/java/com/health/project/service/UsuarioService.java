@@ -12,4 +12,5 @@ public interface UsuarioService {
     void activar (Long id);
     Long consultarId (Usuario usuario);
     Long pacientesTerceraEdad();
+    Usuario validarCredenciales(String correo, String contrasena);
 }

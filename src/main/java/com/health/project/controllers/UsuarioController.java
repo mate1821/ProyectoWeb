@@ -62,13 +62,12 @@ public class UsuarioController {
 
         //Si el roll es medico, que se usen los metodos del servicio de médico
         if (rol != null && "Medico".equalsIgnoreCase(rol.getNombre())) {
-        Medico medico = medicoService.guardarMedicoDesdeUsuario(usuario, especialidadId, espacioId);
-        return "redirect:/usuarios/InicioMedico/" + medico.getId();
+        medicoService.guardarMedicoDesdeUsuario(usuario, especialidadId, espacioId);
         }
         else {
             usuarioService.guardar(usuario);
-            return "redirect:/usuarios/Inicio/"+usuario.getId();
         }
+        return "redirect:/inicio-sesion";
     }
 
     @GetMapping("/editar/{id}")

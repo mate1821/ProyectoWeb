@@ -56,5 +56,10 @@ public class UsuarioServiceImpl implements UsuarioService {
         return repo.pacientesTerceraEdad();
     }
 
+    @Override
+    public Usuario validarCredenciales(String correo, String contrasena) {
+        return repo.findFirstByCorreoAndContrasena(correo, contrasena);
+}
+
     
 }
