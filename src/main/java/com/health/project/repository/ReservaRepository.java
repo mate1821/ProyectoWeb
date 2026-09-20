@@ -8,6 +8,9 @@ import java.util.List;
 
 import com.health.project.entitys.Medico;
 import com.health.project.entitys.Reserva;
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 
 public interface ReservaRepository extends JpaRepository<Reserva, Long>{
 
@@ -25,6 +28,9 @@ List<Reserva> findMisReservas(@Param("usuarioId") Long usuarioId);
     """)
 List<Reserva> findByMedicoId(@Param("medicoId") Long medicoId);
 
+public boolean existsByMedicoAndFechaAndHoraInicio(Medico medico, LocalDate fecha, LocalTime horaInicio);
+
+List<Reserva> findByMedicoAndFecha(Medico medico, LocalDate fecha);
 
 }
 

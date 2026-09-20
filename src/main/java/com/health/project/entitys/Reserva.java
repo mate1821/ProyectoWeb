@@ -30,8 +30,8 @@ import java.time.LocalDateTime;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter 
 @Setter 
+@Getter
 @Entity 
 
 

@@ -94,7 +94,7 @@ return "mostrar_reservas";
     Long idEsp = especialidadId;
     if (idEsp == null && r != null && r.getMedico() != null && r.getMedico().getEspecialidad() != null) {
         idEsp = r.getMedico().getEspecialidad().getId();
-    }
+    } // Para cargar el medico previo en el
     model.addAttribute("reserva", r);
     model.addAttribute("especialidades", espService.buscarTodos());
     model.addAttribute("paciente", pacienteService.buscarPorId(id)); 

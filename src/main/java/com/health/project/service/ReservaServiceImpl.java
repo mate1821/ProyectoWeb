@@ -12,7 +12,9 @@ import com.health.project.repository.EstadoReservaRepository;
 import com.health.project.repository.ReservaRepository;
 import java.util.List;
 
+import com.health.project.errors.HorarioNoDisponibleException;
 import com.health.project.errors.ReservaNoEncontradaException;
+import com.health.project.errors.UsuarioDuplicado;
 
 @Service
 public class ReservaServiceImpl implements ReservaService {
@@ -38,6 +40,23 @@ public class ReservaServiceImpl implements ReservaService {
 
     @Override
     public void guardar(Reserva reserva) {
+        if (reserva.getIdReserva() == null && repo.existsByMedicoAndFechaAndHoraInicio(reserva.getMedico(), reserva.getFecha(), reserva.getHoraInicio()) ) {
+        throw new HorarioNoDisponibleException(reserva.getMedico(), reserva.getFecha(), reserva.getHoraInicio());
+    }
+    List<Reserva> reservasExistentes = repo.findByMedicoAndFecha(
+        reserva.getMedico(), 
+        reserva.getFecha()
+    );
+
+    for (Reserva existente : reservasExistentes) {
+        if (reserva.getIdReserva() != null && reserva.getIdReserva().equals(existente.getIdReserva())) {
+            continue;
+        }
+        boolean seCruzan = reserva.getHoraInicio().isBefore(existente.getHoraFin()) && reserva.getHoraFin().isAfter(existente.getHoraInicio());
+        if (seCruzan) {
+            throw new HorarioNoDisponibleException(reserva.getMedico(), reserva.getFecha(), reserva.getHoraInicio());
+        }
+    }
         repo.save(reserva);
     }
 

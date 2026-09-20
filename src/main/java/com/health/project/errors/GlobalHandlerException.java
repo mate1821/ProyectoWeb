@@ -27,6 +27,11 @@ public class GlobalHandlerException {
     public String handlerReservaNoEncontrada(ReservaNoEncontradaException ex, Model model) {
     model.addAttribute("error", ex.getMessage());
     return "reservaNoEncontrada";
-}
+    }
 
+    @ExceptionHandler(HorarioNoDisponibleException.class)
+    public String handlerHorarioNodisponible(HorarioNoDisponibleException ex, Model model){ 
+        model.addAttribute("error", ex.getMessage()); 
+        return "horarioNodisponible"; 
+    }
 }
