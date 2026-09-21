@@ -1,68 +1,25 @@
-/*import java.util.Collection;
-import java.util.HashMap;
+package com.health.project.repository;
 
-import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
-import com.example.demo.entityes.Student;
+import com.health.project.entitys.Rol;
+import com.health.project.entitys.Usuario;
 
-import java.util.Map;
+public interface UsuarioRepository 
+extends JpaRepository<Usuario, Long>{
+    @Query("""
+        SELECT count(*) 
+        from Usuario as u
+        where (YEAR(CURRENT_DATE) - YEAR(u.fecha_nacimiento))>=60
+            """)
 
-@Repository
+    Long pacientesTerceraEdad();
 
-public class StudentRepo {
+    boolean existsByCedulaAndRol(Long cedula, Rol rol);
 
-    private Map<Integer,Student> data = new HashMap<>();
+    boolean existsByCorreoAndRol(String correo, Rol rol);
 
-    public StudentRepo(){
+    Usuario findFirstByCorreoAndContrasena(String correo, String contrasena);
 
-data.put(1, new Student(
-    1,
-    "Ansu",
-    "Fati",
-    23,
-    "ansu.fati@example.com",
-    "Futbolista",
-    "URL_IMAGEN"
-));
-
-data.put(2, new Student(
-    2,
-    "Lionel",
-    "Messi",
-    39,
-    "messi@example.com",
-    "Futbolista",
-    "URL_IMAGEN"
-));
-
-data.put(3, new Student(
-    3,
-    "Cristiano",
-    "Ronaldo",
-    41,
-    "cristiano@example.com",
-    "Futbolista",
-    "URL_IMAGEN"
-));
-
-data.put(4, new Student(
-    4,
-    "Kylian",
-    "Mbappe",
-    27,
-    "mbappe@example.com",
-    "Futbolista",
-    "URL_IMAGEN"
-));
-    } 
-
-
-    public Student findById(Integer id){
-        return data.get(id);
-    }
-
-    public Collection<Student> findAll(){
-        return data.values();
-    }
 }
-*/

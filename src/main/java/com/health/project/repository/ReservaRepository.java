@@ -1,54 +1,36 @@
 package com.health.project.repository;
-import java.util.Collection;
-import java.util.HashMap;
-
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
+import com.health.project.entitys.Medico;
 import com.health.project.entitys.Reserva;
-import com.health.project.entitys.Usuario;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
-import java.util.Map;
 
-@Repository
+public interface ReservaRepository extends JpaRepository<Reserva, Long>{
 
-public class ReservaRepository {
+@Query("""
+    SELECT r
+    FROM Reserva r
+    WHERE r.usuario.id = :usuarioId
+    """)
+List<Reserva> findMisReservas(@Param("usuarioId") Long usuarioId);
 
-    private Map<Integer, Reserva> data = new HashMap<>();
+@Query("""
+    SELECT r
+    FROM Reserva r
+    WHERE r.medico.id = :medicoId
+    """)
+List<Reserva> findByMedicoId(@Param("medicoId") Long medicoId);
 
-    public ReservaRepository(){
-        Usuario usuario1 = new Usuario(1, null, "ansu fati", null, null, null, null, null, null, null);
-        Usuario usuario2 = new Usuario(2, null, "Lamine", null, null, null, null, null, null, null);
+public boolean existsByMedicoAndFechaAndHoraInicio(Medico medico, LocalDate fecha, LocalTime horaInicio);
 
-data.put(1, new Reserva(
-    1,
-    usuario1,
-    "Espacio 1",
-    "2023-10-10",
-    "10:00"
-));
-
-data.put(2, new Reserva(
-    2,
-    usuario2,
-    "Espacio 2",
-    "2023-10-10",
-    "11:00"
-));
-
-data.put(3, new Reserva(
-    3,
-    null,
-    "Espacio 3",
-    "2023-10-10",
-    "12:00"
-));
+List<Reserva> findByMedicoAndFecha(Medico medico, LocalDate fecha);
 
 }
-    public Reserva findById(Integer id){
-        return data.get(id);
-    }
 
-    public Collection<Reserva> findAll(){
-        return data.values();
-    }
-}
