@@ -16,7 +16,9 @@ extends JpaRepository<Usuario, Long>{
 
     Long pacientesTerceraEdad();
 
-    public boolean existsByCedulaAndRol(Long cedula, Rol rol);
+    boolean existsByCedulaAndRol(Long cedula, Rol rol);
+
+    boolean existsByCorreoAndRol(String correo, Rol rol);
 
     Usuario findFirstByCorreoAndContrasena(String correo, String contrasena);
 

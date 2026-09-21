@@ -24,9 +24,19 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
     @Override
     public void guardar(Usuario usuario){
-        if (usuario.getId() == null && repo.existsByCedulaAndRol(usuario.getCedula(), usuario.getRol())) {
-        throw new UsuarioDuplicado(usuario.getCedula(), usuario.getRol());
+
+    if (usuario.getId() == null) {
+
+    if (repo.existsByCedulaAndRol( usuario.getCedula(), usuario.getRol())) {
+
+        throw new UsuarioDuplicado("Ya existe un usuario de tipo "+ usuario.getRol().getNombre()+ " registrado con la cédula "+ usuario.getCedula());
     }
+
+    if (repo.existsByCorreoAndRol(usuario.getCorreo(),usuario.getRol())) {
+
+        throw new UsuarioDuplicado( "Ya existe un usuario de tipo " + usuario.getRol().getNombre()+ " registrado con el correo "+ usuario.getCorreo());
+    }
+}
         repo.save(usuario);
     }
 

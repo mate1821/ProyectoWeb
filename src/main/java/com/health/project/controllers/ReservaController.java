@@ -113,7 +113,7 @@ public String guardarReserva(@ModelAttribute Reserva reserva,@RequestParam(name 
 
     reserva.setUsuario(pacienteService.buscarPorId(pacienteId));
     reserva.setMedico(medService.buscarPorId(medicoId));
-    reserva.setEstado(estadoService.buscarPorId(3L));
+    reserva.setEstado(estadoService.buscarPorId(1L));
 
     if (reserva.getFechaSolicitud() == null) {
         reserva.setFechaSolicitud(LocalDateTime.now());
